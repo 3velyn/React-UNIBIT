@@ -33,7 +33,7 @@ export const logout = async () => {
     }
 };
 
-export const getCurrentuser = async () => {
+export const getCurrentUser = async () => {
     try {
         const response = await axios.get(`${API_URL}/me`);
         return response.data;
