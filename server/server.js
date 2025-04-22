@@ -5,6 +5,7 @@ const connectDB = require('./config/database');
 require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
+const postRoutes = require('./routes/posts')
 
 connectDB();
 
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 
 
 app.use('/api/auth', authRoutes);
+app.use('/api/posts', postRoutes);
 
 app.use((err, req, res, next) => {
   console.error('Server error:', err);
