@@ -151,7 +151,7 @@ export default function BlogDetail() {
           </div>
 
           <div
-            className="text-amber-100/90 max-w-none mb-6 text-lg leading-relaxed"
+            className="prose prose-invert prose-amber prose-headings:text-amber-300 prose-h2:text-2xl prose-h2:font-bold prose-h2:mt-8 prose-h2:mb-4 max-w-none"
             dangerouslySetInnerHTML={{ __html: post.content }}
           ></div>
 
