@@ -50,8 +50,8 @@ const PostSchema = new mongoose.Schema({
   category: {
     type: String,
     required: [true, 'Category is required'],
-    enum: ['Locations', 'Cities', 'Dungeons', 'History', 'Classes', 
-    'Professions', 'Events', 'Guides', 'Lore'],
+    enum: ['Locations', 'Cities', 'Dungeons', 'Characters', 'Classes', 
+    'Professions', 'Events', 'Guides', 'Lore', 'Races'],
   },
   image: {
     type: String,

@@ -34,12 +34,13 @@ export default function CreatePostPage() {
     "Locations",
     "Cities",
     "Dungeons",
-    "History",
+    "Characters",
     "Classes",
     "Professions",
     "Events",
     "Guides",
     "Lore",
+    "Races",
   ];
 
   const handleChange = (e) => {
@@ -109,10 +110,12 @@ export default function CreatePostPage() {
 
   return (
     <div className="min-h-[calc(100vh-6em)] py-8 px-4 relative">
-      <div className="absolute inset-0 bg-cover bg-center opacity-90 z-0" 
-        style={{ backgroundImage: `url(${barrensBackground})` }}></div>
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-90 z-0"
+        style={{ backgroundImage: `url(${barrensBackground})` }}
+      ></div>
       <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-800/90 to-slate-900/90 z-0"></div>
-      
+
       <div className="container mx-auto max-w-4xl relative z-10">
         <div className="border-2 border-amber-700 rounded-lg overflow-hidden bg-gradient-to-b from-slate-800/95 to-slate-900/95 shadow-xl">
           <div className="p-6 border-b border-amber-700/30">
@@ -123,7 +126,7 @@ export default function CreatePostPage() {
               Share your knowledge of Azeroth with the world
             </p>
           </div>
-          
+
           <form onSubmit={handleSubmit} className="p-6">
             {formError && (
               <div className="mb-6 p-4 bg-red-900/30 border border-red-800 rounded flex items-center">
@@ -131,14 +134,14 @@ export default function CreatePostPage() {
                 <span className="text-red-200">{formError}</span>
               </div>
             )}
-            
+
             {successMessage && (
               <div className="mb-6 p-4 bg-green-900/30 border border-green-800 rounded flex items-center">
                 <FaCheckCircle className="text-green-500 mr-2 flex-shrink-0" />
                 <span className="text-green-200">{successMessage}</span>
               </div>
             )}
-          
+
             <div className="space-y-6">
               <div>
                 <label className="block text-amber-300 text-sm font-medium uppercase tracking-wide mb-1">
@@ -161,7 +164,7 @@ export default function CreatePostPage() {
                   />
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-amber-300 text-sm font-medium uppercase tracking-wide mb-1">
                   Content
@@ -183,10 +186,11 @@ export default function CreatePostPage() {
                   ></textarea>
                 </div>
                 <p className="mt-1 text-xs text-amber-400/60">
-                  Write your full blog post content here. You can use basic HTML tags for formatting.
+                  Write your full blog post content here. You can use basic HTML
+                  tags for formatting.
                 </p>
               </div>
-              
+
               <div>
                 <label className="block text-amber-300 text-sm font-medium uppercase tracking-wide mb-1">
                   Excerpt
@@ -210,7 +214,7 @@ export default function CreatePostPage() {
                   A short summary shown on blog cards.
                 </p>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-amber-300 text-sm font-medium uppercase tracking-wide mb-1">
@@ -229,18 +233,30 @@ export default function CreatePostPage() {
                       disabled={loading}
                     >
                       <option value="">Select a category</option>
-                      {categories.map(category => (
-                        <option key={category} value={category}>{category}</option>
+                      {categories.map((category) => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
                       ))}
                     </select>
                     <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                      <svg className="h-4 w-4 text-amber-400" fill="none" viewBox="0 0 20 20" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 7l3-3 3 3m0 6l-3 3-3-3" />
+                      <svg
+                        className="h-4 w-4 text-amber-400"
+                        fill="none"
+                        viewBox="0 0 20 20"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M7 7l3-3 3 3m0 6l-3 3-3-3"
+                        />
                       </svg>
                     </div>
                   </div>
                 </div>
-                
+
                 <div>
                   <label className="block text-amber-300 text-sm font-medium uppercase tracking-wide mb-1">
                     Read Time
@@ -267,14 +283,24 @@ export default function CreatePostPage() {
                       <option value="15 min">15 min</option>
                     </select>
                     <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                      <svg className="h-4 w-4 text-amber-400" fill="none" viewBox="0 0 20 20" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 7l3-3 3 3m0 6l-3 3-3-3" />
+                      <svg
+                        className="h-4 w-4 text-amber-400"
+                        fill="none"
+                        viewBox="0 0 20 20"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M7 7l3-3 3 3m0 6l-3 3-3-3"
+                        />
                       </svg>
                     </div>
                   </div>
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-amber-300 text-sm font-medium uppercase tracking-wide mb-1">
                   Image URL
@@ -294,46 +320,75 @@ export default function CreatePostPage() {
                   />
                 </div>
                 <p className="mt-1 text-xs text-amber-400/60">
-                  Leave blank for default image. Use high-quality landscape images for best results.
+                  Leave blank for default image. Use high-quality landscape
+                  images for best results.
                 </p>
               </div>
-              
+
               <div className="p-4 bg-slate-800/50 border border-amber-700/30 rounded-md">
                 <h3 className="text-amber-300 text-sm font-medium uppercase tracking-wide mb-2">
                   Author Preview
                 </h3>
                 <div className="flex items-center">
                   <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-amber-600 mr-3">
-                    <img 
+                    <img
                       className="w-full h-full object-cover"
-                      src={user?.avatar || "https://wow.zamimg.com/images/wow/icons/large/inv_misc_questionmark.jpg"}
+                      src={
+                        user?.avatar ||
+                        "https://wow.zamimg.com/images/wow/icons/large/inv_misc_questionmark.jpg"
+                      }
                       alt={user?.username || "Author"}
                     />
                   </div>
                   <div>
-                    <p className="text-amber-400 font-medium text-sm">{user?.username || "Anonymous"}</p>
+                    <p className="text-amber-400 font-medium text-sm">
+                      {user?.username || "Anonymous"}
+                    </p>
                     <p className="text-amber-400/60 text-xs">
-                      {new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })} • {formData.readTime} read
+                      {new Date().toLocaleDateString("en-US", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}{" "}
+                      • {formData.readTime} read
                     </p>
                   </div>
                 </div>
               </div>
-              
+
               <div className="pt-4">
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   disabled={loading}
                   className="w-full py-3 bg-gradient-to-b from-amber-700 to-amber-900 text-amber-200 rounded border border-amber-600 hover:from-amber-600 hover:to-amber-800 hover:text-white transition-all duration-300 font-medium uppercase tracking-wide text-sm disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <span className="flex items-center justify-center">
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-amber-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      <svg
+                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-amber-200"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
                       </svg>
                       Creating Post...
                     </span>
-                  ) : 'Create Post'}
+                  ) : (
+                    "Create Post"
+                  )}
                 </button>
               </div>
             </div>
@@ -341,5 +396,5 @@ export default function CreatePostPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
