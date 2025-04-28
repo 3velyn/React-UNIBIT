@@ -24,9 +24,9 @@ export default function LoginPage() {
     e.preventDefault();
     setFormError("");
 
-    if (email) {
+    if (formData.email) {
       const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if (!pattern.test(email)) {
+      if (!pattern.test(formData.email)) {
         setFormError("Invalid email! (exam-ple@example.exa)");
         return;
       }
