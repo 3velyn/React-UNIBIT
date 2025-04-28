@@ -25,6 +25,24 @@ export default function SignUpPage() {
     e.preventDefault();
     setFormError("");
 
+    if (username.length < 3) {
+      setFormError("Username must be at least 3 characters");
+      return;
+    }
+
+    if (email) {
+      const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      if (!pattern.test(email)) {
+        setFormError("Invalid email! (exam-ple@example.exa)");
+        return;
+      }
+    }
+
+    if (password.length < 6) {
+      setFormError("Password must be at least 6 characters");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setFormError("Password do not match");
       return;
