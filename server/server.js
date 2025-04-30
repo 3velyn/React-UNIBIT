@@ -5,7 +5,8 @@ const connectDB = require('./config/database');
 require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
-const postRoutes = require('./routes/posts')
+const postRoutes = require('./routes/posts');
+const userRoutes = require('./routes/user');
 
 connectDB();
 
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
   origin: 'http://localhost:5173',
-  credentials: true 
+  credentials: true
 }));
 
 app.use((req, res, next) => {
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/users', userRoutes);
 
 app.use((err, req, res, next) => {
   console.error('Server error:', err);
