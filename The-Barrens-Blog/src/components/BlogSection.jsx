@@ -26,14 +26,8 @@ export default function BlogSection() {
         setPosts(response.posts);
         setTotalPages(response.totalPages);
 
-        if (categories.length <= 1) {
-          const uniqueCategories = ["All"];
-          response.posts.forEach((post) => {
-            if (!uniqueCategories.includes(post.category)) {
-              uniqueCategories.push(post.category);
-            }
-          });
-          setCategories(uniqueCategories);
+        if (response.allCategories) {
+          setCategories(response.allCategories);
         }
         setError(null);
       } catch (error) {
@@ -44,7 +38,7 @@ export default function BlogSection() {
         setLoading(false);
       }
     }
-    
+
     fetchPosts();
   }, [currentPage, activeCategory]);
 
