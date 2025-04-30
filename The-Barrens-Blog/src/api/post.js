@@ -4,10 +4,10 @@ const API_URL = 'http://localhost:3002/api/posts';
 
 axios.defaults.withCredentials = true;
 
-export const getAllPosts = async (page = 1, limit = 6, category = 'All') => {
+export const getAllPosts = async (page = 1, limit = 6, category = 'All', fetchAll = false) => {
   try {
     const response = await axios.get(`${API_URL}`, {
-      params: { page, limit, category }
+      params: { page, limit, category, all: fetchAll }
     });
     return response.data;
   } catch (error) {
