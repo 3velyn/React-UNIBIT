@@ -3,6 +3,7 @@ const User = require("../models/User");
 
 exports.getPosts = async (req, res) => {
   try {
+    const fetchAll = req.query.all === 'true';
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 6;
     const skip = (page - 1) * limit;
@@ -13,20 +14,32 @@ exports.getPosts = async (req, res) => {
       query.category = category;
     }
 
-    const posts = await Post.find(query)
+    let postsQuery = Post.find(query)
       .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit)
       .populate("author", "username avatar");
 
+    if (!fetchAll) {
+      postsQuery = postsQuery.skip(skip).limit(limit);
+    }
+
+    const posts = await postsQuery;
     const total = await Post.countDocuments(query);
+
+    const categoriesResult = await Post.aggregate([
+      { $group: { _id: "$category" } },
+      { $match: { _id: { $ne: null } } },
+      { $sort: { _id: 1 } }
+    ]);
+
+    const allCategories = ['All', ...categoriesResult.map(c => c._id)]
 
     res.status(200).json({
       success: true,
       count: posts.length,
       total,
-      totalPages: Math.ceil(total / limit),
-      currentPage: page,
+      totalPages: fetchAll ? 1 : Math.ceil(total / limit),
+      currentPage: fetchAll ? 1 : page,
+      allCategories,
       posts: posts.map((post) => ({
         id: post._id,
         title: post.title,
