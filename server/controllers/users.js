@@ -6,7 +6,7 @@ exports.getUserStats = async (req, res) => {
     try {
         const userId = req.params.userId || req.user._id;
         const user = await User.findById(userId);
-
+        
         if (!user) {
             return res.status(404).json({
                 success: false,
@@ -20,11 +20,11 @@ exports.getUserStats = async (req, res) => {
 
         const postsWithUserComments = await Post.aggregate([
             { $unwind: "$comments" },
-            { $match: { "comment.author": new mongoose.Types.ObjectId(userId) } },
+            { $match: { "comments.author": new mongoose.Types.ObjectId(userId) } },
             {
                 $group: {
                     _id: "$_id",
-                    title: { $first: "title" },
+                    title: { $first: "$title" },
                     category: { $first: "$category" },
                     image: { $first: "$image" },
                     createdAt: { $first: "$createdAt" },
@@ -40,11 +40,26 @@ exports.getUserStats = async (req, res) => {
             { $sort: { "comments.createdAt": -1 } }
         ]);
 
+        const postsWithUserLikes = await Post.aggregate([
+            { $unwind: "$comments" },
+            { $unwind: "$comments.likedBy" },
+            { $match: { "comments.likedBy": new mongoose.Types.ObjectId(userId) } },
+            {
+                $group: {
+                    _id: "$_id",
+                    title: { $first: "$title" },
+                    category: { $first: "$category" },
+                    image: { $first: "$image" },
+                    createdAt: { $first: "$createdAt" },
+                }
+            },
+            { $sort: { createdAt: -1 } }
+        ]);
+
         let totalCommentCount = 0;
         postsWithUserComments.forEach(post => {
             totalCommentCount += post.commentCount;
         });
-
 
         const recentPosts = userPosts.slice(0, 5).map(post => ({
             type: 'post',
@@ -94,15 +109,17 @@ exports.getUserStats = async (req, res) => {
                 createdAt: user.createdAt
             }
         });
-    } catch (err) {
-        console.error('Error fetching user stats:', err);
+
+    } catch (error) {
+        console.error('Error fetching user stats:', error);
         return res.status(500).json({
             success: false,
             message: 'Failed to fetch user statistics',
-            error: err.message
+            error: error.message
         });
     }
-}
+};
+
 
 exports.changeAvatar = async (req, res) => {
     try {
