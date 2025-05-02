@@ -24,25 +24,7 @@ export default function HeroSection() {
             stories
           </p>
 
-          <div className="flex flex-wrap justify-center items-center gap-4">
-            <button className="px-6 py-2 bg-gradient-to-b from-amber-700 to-amber-900 text-amber-200 rounded border border-amber-600 hover:from-amber-600 hover:to-amber-800 hover:text-white transition-all duration-300 font-medium uppercase text-sm tracking-wide">
-              Subscribe
-            </button>
-            <div className="flex space-x-3 items-center">
-              <a
-                href="#"
-                className="text-amber-400 hover:text-amber-300 transition-colors"
-              >
-                <FaTwitter size={20} />
-              </a>
-              <a
-                href="#"
-                className="text-amber-400 hover:text-amber-300 transition-colors"
-              >
-                <FaDiscord size={20} />
-              </a>
-            </div>
-          </div>
+
         </div>
       </div>
 
